@@ -1,3 +1,8 @@
+# PUBLIC SAMPLE ONLY.
+# Copy this file to terraform.tfvars for local testing, then replace the
+# placeholder values privately. Never commit real tenant IDs, subscription IDs,
+# Entra object IDs, secrets, network details, or production DNS targets.
+
 enterprise_id            = "contoso"
 location                 = "eastus"
 platform_subscription_id = "00000000-0000-0000-0000-000000000000"

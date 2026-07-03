@@ -66,6 +66,18 @@ It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 
 This is an ALZ Accelerator-oriented implementation scaffold. It is designed to prove that I understand the Microsoft ALZ Terraform implementation model and the enterprise design patterns around it.
 
+## Public Repo Safety
+
+This repository is public by design. It uses placeholder values only and must not contain real Azure tenant IDs, subscription IDs, Entra object IDs, secrets, state files, plan files, production network details, or unsanitized screenshots.
+
+Before pushing changes, run:
+
+```powershell
+.\scripts\Test-PublicRepoSafety.ps1
+```
+
+For the full checklist, see [Public Repo Safety](docs/PUBLIC-REPO-SAFETY.md) and [Security Policy](SECURITY.md).
+
 ## Architecture Review
 
 For a professional gap assessment and hardening roadmap, see [Repo Review Recommendations](docs/REPO-REVIEW-RECOMMENDATIONS.md).

@@ -5,6 +5,9 @@
 *.tfstate
 *.tfstate.*
 *.tfplan
+*.plan
+plan.out
+crash.*.log
 .alzlib/
 **/.alzlib/
 crash.log
@@ -14,3 +17,26 @@ override.tf.json
 *_override.tf.json
 .vscode/
 
+# Local values and credentials
+*.tfvars
+!*.tfvars.example
+*.tfvars.json
+!*.tfvars.example.json
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.p12
+*.key
+*.cer
+*.crt
+*.kubeconfig
+
+# Azure and Terraform local caches
+.azure/
+**/.terraform.tfstate.lock.info
+
+# Generated evidence should be sanitized before commit.
+evidence/raw/
+evidence/screenshots/
