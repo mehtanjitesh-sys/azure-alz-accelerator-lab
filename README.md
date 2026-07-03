@@ -82,6 +82,8 @@ For the full checklist, see [Public Repo Safety](docs/PUBLIC-REPO-SAFETY.md) and
 
 For a professional gap assessment and hardening roadmap, see [Repo Review Recommendations](docs/REPO-REVIEW-RECOMMENDATIONS.md).
 
+For portfolio proof, use [Validation Evidence](docs/VALIDATION-EVIDENCE.md) and commit only sanitized outputs.
+
 ## Deployment Stages
 
 The main root module remains useful for lab review, but production rollout should follow the stage model in [Deployment Stages](docs/DEPLOYMENT-STAGES.md).
