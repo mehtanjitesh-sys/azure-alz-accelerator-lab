@@ -7,7 +7,7 @@ cd environments/alz-platform
 terraform init
 terraform fmt -recursive -check
 terraform validate
-terraform plan -out=tfplan
+terraform plan -detailed-exitcode -out=tfplan
 ```
 
 ## ALZ-Specific Validation
@@ -31,8 +31,8 @@ az network firewall show \
   --output table
 
 az network route-table route list \
-  --resource-group rg-contoso-connectivity-hub \
-  --route-table-name rt-contoso-spoke-egress \
+  --resource-group <spoke-network-resource-group> \
+  --route-table-name rt-<spoke-key>-forced-egress \
   --output table
 ```
 
@@ -99,7 +99,6 @@ az afd endpoint show \
 Expected result:
 
 - Front Door endpoint exists.
-- Blue origin is live.
-- Green origin can be validated before traffic switch.
-- Rollback is possible by returning traffic to blue.
-
+- Blue and green origins are in the same origin group.
+- Traffic can be shifted by changing `blue_origin_weight` and `green_origin_weight`.
+- Rollback is possible by returning weight to blue.

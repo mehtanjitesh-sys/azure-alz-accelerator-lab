@@ -6,11 +6,6 @@ output "firewall_private_ip_address" {
   value = azurerm_firewall.this.ip_configuration[0].private_ip_address
 }
 
-output "spoke_egress_route_table_id" {
-  value = azurerm_route_table.spoke_egress.id
-}
-
 output "dns_resolver_inbound_endpoint_id" {
   value = azurerm_private_dns_resolver_inbound_endpoint.this.id
 }
-

@@ -23,6 +23,13 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Ensure ALZ library cache is not committed
+        run: |
+          if git ls-files | grep -E -q '(^|/)\.alzlib/'; then
+            echo ".alzlib must not be committed"
+            exit 1
+          fi
+
       - name: Azure login with OIDC
         uses: azure/login@v2
         with:
@@ -44,8 +51,29 @@ jobs:
       - name: Terraform validate
         run: terraform validate
 
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: environments/alz-platform
+          quiet: true
+          soft_fail: true
+
       - name: Terraform plan
-        run: terraform plan -out=tfplan
+        id: plan
+        run: |
+          set +e
+          terraform plan -detailed-exitcode -out=tfplan
+          exit_code=$?
+          if [ "$exit_code" -eq 1 ]; then
+            exit 1
+          fi
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: alz-platform-tfplan
+          path: environments/alz-platform/tfplan
 
   apply:
     if: github.event_name == 'workflow_dispatch'
@@ -63,6 +91,12 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Download approved plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: alz-platform-tfplan
+          path: environments/alz-platform
+
       - name: Azure login with OIDC
         uses: azure/login@v2
         with:
@@ -79,5 +113,4 @@ jobs:
             -backend-config="key=alz-platform.tfstate"
 
       - name: Terraform apply
-        run: terraform apply -auto-approve
-
+        run: terraform apply -auto-approve tfplan

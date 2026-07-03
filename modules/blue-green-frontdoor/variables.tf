@@ -23,3 +23,12 @@ variable "green_origin_host" {
   type = string
 }
 
+variable "blue_origin_weight" {
+  type    = number
+  default = 1000
+}
+
+variable "green_origin_weight" {
+  type    = number
+  default = 0
+}

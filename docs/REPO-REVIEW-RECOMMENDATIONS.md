@@ -376,7 +376,20 @@ Avoid saying:
 
 That claim is too strong until the repo has been validated against a real tenant and the multi-subscription/provider model is corrected.
 
+## Implementation Status
+
+Several recommendations in this review have now been implemented:
+
+- Added ALZ custom library metadata and local library documentation.
+- Made the fixed `contoso` enterprise ID explicit with a Terraform validation guard.
+- Split spoke-side route table and peering work into `modules/workload-network-onboarding`.
+- Removed brittle route-table creation from subscription vending.
+- Reworked Front Door blue/green to use one origin group with configurable blue/green weights.
+- Added deployment-stage guidance and evidence templates.
+- Strengthened the GitHub Actions workflow with additional quality gates.
+
+The remaining hardening work is mostly tenant validation, provider alias strategy for real multi-subscription deployment, and captured deployment evidence.
+
 ## Bottom Line
 
 The repo is credible and directionally strong. It shows the right instincts and the right Microsoft ALZ module direction. The next round should focus less on adding more Azure services and more on making the deployment model real: ALZ library validation, staged deployments, provider boundaries, subscription onboarding, traffic switching, and evidence.
-

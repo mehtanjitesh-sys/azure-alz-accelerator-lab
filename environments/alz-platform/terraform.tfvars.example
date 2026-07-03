@@ -1,4 +1,4 @@
-prefix                   = "contoso"
+enterprise_id            = "contoso"
 location                 = "eastus"
 platform_subscription_id = "00000000-0000-0000-0000-000000000000"
 log_analytics_workspace_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-contoso-management/providers/Microsoft.OperationalInsights/workspaces/law-contoso"

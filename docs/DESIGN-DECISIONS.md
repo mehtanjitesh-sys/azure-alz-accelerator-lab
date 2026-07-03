@@ -29,12 +29,10 @@ The hub module creates:
 
 - Azure Firewall
 - Firewall Policy
-- Forced egress route table
-- `0.0.0.0/0` next hop to the firewall private IP
-- Hub-to-spoke and spoke-to-hub peering
+- Hub-to-spoke peering
 - Private DNS Resolver inbound and outbound endpoints
 
-This supports the client requirement for hub-based egress and no direct spoke internet.
+The workload network onboarding module creates the spoke-side peering, forced egress route table, `0.0.0.0/0` next hop, and subnet route table association. This split reflects real enterprise ownership: the network platform team owns the hub, while subscription onboarding applies spoke controls with the correct workload subscription context.
 
 ## 4. Subscription Vending
 
@@ -80,4 +78,3 @@ The intended release model is:
 5. Promote after validation.
 
 Stateful workloads still require separate database migration and rollback decisions.
-

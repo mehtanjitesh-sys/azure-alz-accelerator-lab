@@ -18,11 +18,12 @@ It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 | Custom management group hierarchy beyond CAF defaults | `lib/enterprise.alz_architecture_definition.yaml` |
 | Subscription placement through ALZ | `environments/alz-platform/main.tf` |
 | Hub-controlled egress | `modules/hub-egress` |
-| Route tables with `0.0.0.0/0` to Azure Firewall | `modules/hub-egress` |
+| Route tables with `0.0.0.0/0` to Azure Firewall | `modules/workload-network-onboarding` |
 | Hub/spoke peering | `modules/hub-egress` |
 | Private DNS Resolver scaffolding | `modules/hub-egress` |
 | Subscription vending object model | `modules/subscription-vending` |
 | RBAC, budgets, tags, diagnostics for vended subscriptions | `modules/subscription-vending` |
+| Spoke-side peering and subnet route association | `modules/workload-network-onboarding` |
 | Identity baseline examples | `modules/identity-baseline` |
 | Federated deployment identity | `modules/identity-baseline` |
 | Blue/green deployment reference | `modules/blue-green-frontdoor` |
@@ -44,8 +45,15 @@ It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 |-- modules/
 |   |-- hub-egress/
 |   |-- subscription-vending/
+|   |-- workload-network-onboarding/
 |   |-- identity-baseline/
 |   `-- blue-green-frontdoor/
+|-- evidence/
+|   |-- management-groups.md
+|   |-- subscription-placement.md
+|   |-- hub-egress.md
+|   |-- github-oidc.md
+|   `-- blue-green.md
 |-- docs/
 |   |-- DESIGN-DECISIONS.md
 |   |-- OPERATING-MODEL.md
@@ -62,6 +70,10 @@ This is an ALZ Accelerator-oriented implementation scaffold. It is designed to p
 
 For a professional gap assessment and hardening roadmap, see [Repo Review Recommendations](docs/REPO-REVIEW-RECOMMENDATIONS.md).
 
+## Deployment Stages
+
+The main root module remains useful for lab review, but production rollout should follow the stage model in [Deployment Stages](docs/DEPLOYMENT-STAGES.md).
+
 It still requires real enterprise inputs before production use:
 
 - Tenant ID
@@ -73,6 +85,7 @@ It still requires real enterprise inputs before production use:
 - DNS forwarding targets
 - Allowed regions
 - Compliance control mapping
+- A generated ALZ architecture definition if changing the default `contoso` enterprise ID
 
 ## Why This Is Different From A Custom Landing Zone
 

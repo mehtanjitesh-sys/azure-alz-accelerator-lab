@@ -26,11 +26,3 @@ variable "default_tags" {
 variable "log_analytics_workspace_id" {
   type = string
 }
-
-variable "hub_vnet_id" {
-  type = string
-}
-
-variable "firewall_private_ip_address" {
-  type = string
-}

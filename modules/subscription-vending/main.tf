@@ -56,7 +56,7 @@ resource "azurerm_consumption_budget_subscription" "monthly" {
   for_each = var.subscriptions
 
   name            = "budget-${each.key}-monthly"
-  subscription_id = "/subscriptions/${each.value.subscription_id}"
+  subscription_id = each.value.subscription_id
   amount          = each.value.monthly_budget
   time_grain      = "Monthly"
 
@@ -100,22 +100,3 @@ resource "azurerm_monitor_diagnostic_setting" "subscription_activity" {
     category = "Policy"
   }
 }
-
-resource "azurerm_route_table" "workload_egress" {
-  for_each = {
-    for key, subscription in var.subscriptions : key => subscription
-    if subscription.connectivity == "hub-connected"
-  }
-
-  name                = "rt-${each.key}-forced-egress"
-  location            = "eastus"
-  resource_group_name = "rg-${each.key}-network"
-
-  route {
-    name                   = "default-to-hub-firewall"
-    address_prefix         = "0.0.0.0/0"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = var.firewall_private_ip_address
-  }
-}
-

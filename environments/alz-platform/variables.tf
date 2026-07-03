@@ -3,10 +3,15 @@ variable "location" {
   default = "eastus"
 }
 
-variable "prefix" {
+variable "enterprise_id" {
   type        = string
-  description = "Short enterprise prefix used for management group and resource names."
+  description = "Enterprise identifier used in management group and resource names. Must match the IDs in lib/enterprise.alz_architecture_definition.yaml."
   default     = "contoso"
+
+  validation {
+    condition     = var.enterprise_id == "contoso"
+    error_message = "This lab architecture file is currently pinned to the contoso enterprise_id. Generate a matching ALZ architecture file before changing this value."
+  }
 }
 
 variable "platform_subscription_id" {
@@ -154,4 +159,16 @@ variable "blue_origin_host" {
 variable "green_origin_host" {
   type    = string
   default = "green.example.com"
+}
+
+variable "blue_origin_weight" {
+  type        = number
+  description = "Front Door origin weight for the blue/live origin."
+  default     = 1000
+}
+
+variable "green_origin_weight" {
+  type        = number
+  description = "Front Door origin weight for the green/staging origin."
+  default     = 0
 }
