@@ -22,7 +22,7 @@ The main recommendations are:
 flowchart TB
   GH["GitHub Actions<br/>OIDC workflow"]
   Env["environments/alz-platform"]
-  ALZ["Microsoft AVM ALZ Module<br/>Azure/terraform-azurerm-avm-ptn-alz"]
+  ALZ["Microsoft AVM ALZ Module<br/>Azure/avm-ptn-alz"]
   Lib["Custom ALZ Architecture<br/>lib/enterprise.alz_architecture_definition.yaml"]
   Hub["Hub Egress Module<br/>Firewall, DNS Resolver, Peering"]
   Vend["Subscription Vending Module<br/>RBAC, Budgets, Diagnostics"]

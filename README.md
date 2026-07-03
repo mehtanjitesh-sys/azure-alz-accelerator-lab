@@ -4,7 +4,7 @@ This repository is a portfolio-grade Azure Landing Zone implementation focused o
 
 It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 
-- `Azure/terraform-azurerm-avm-ptn-alz/azurerm`
+- `Azure/avm-ptn-alz/azurerm`
 - Azure Landing Zones library references through the `azure/alz` provider
 - Custom ALZ architecture definition for enterprise segmentation
 - Subscription placement through the ALZ module

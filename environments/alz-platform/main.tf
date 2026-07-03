@@ -10,7 +10,7 @@ locals {
 }
 
 module "alz" {
-  source  = "Azure/terraform-azurerm-avm-ptn-alz/azurerm"
+  source  = "Azure/avm-ptn-alz/azurerm"
   version = "0.21.0"
 
   architecture_name  = "enterprise"
@@ -39,20 +39,20 @@ module "alz" {
 module "hub_egress" {
   source = "../../modules/hub-egress"
 
-  location                    = var.location
-  prefix                      = var.enterprise_id
-  resource_group_name         = "rg-${var.enterprise_id}-connectivity-hub"
-  hub_vnet_address_space      = var.hub_vnet_address_space
-  firewall_subnet_cidr        = var.firewall_subnet_cidr
-  bastion_subnet_cidr         = var.bastion_subnet_cidr
-  dns_inbound_subnet_cidr     = var.dns_inbound_subnet_cidr
-  dns_outbound_subnet_cidr    = var.dns_outbound_subnet_cidr
-  spokes                      = var.spokes
-  dns_forwarding_rules        = var.dns_forwarding_rules
-  log_analytics_workspace_id  = var.log_analytics_workspace_id
-  ddos_protection_plan_id     = var.ddos_protection_plan_id
-  firewall_policy_sku         = var.firewall_policy_sku
-  firewall_sku_tier           = var.firewall_sku_tier
+  location                   = var.location
+  prefix                     = var.enterprise_id
+  resource_group_name        = "rg-${var.enterprise_id}-connectivity-hub"
+  hub_vnet_address_space     = var.hub_vnet_address_space
+  firewall_subnet_cidr       = var.firewall_subnet_cidr
+  bastion_subnet_cidr        = var.bastion_subnet_cidr
+  dns_inbound_subnet_cidr    = var.dns_inbound_subnet_cidr
+  dns_outbound_subnet_cidr   = var.dns_outbound_subnet_cidr
+  spokes                     = var.spokes
+  dns_forwarding_rules       = var.dns_forwarding_rules
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+  ddos_protection_plan_id    = var.ddos_protection_plan_id
+  firewall_policy_sku        = var.firewall_policy_sku
+  firewall_sku_tier          = var.firewall_sku_tier
 }
 
 module "identity_baseline" {
@@ -69,9 +69,9 @@ module "identity_baseline" {
 module "subscription_vending" {
   source = "../../modules/subscription-vending"
 
-  subscriptions               = var.subscriptions
-  default_tags                = var.default_tags
-  log_analytics_workspace_id  = var.log_analytics_workspace_id
+  subscriptions              = var.subscriptions
+  default_tags               = var.default_tags
+  log_analytics_workspace_id = var.log_analytics_workspace_id
 }
 
 module "workload_network_onboarding" {
