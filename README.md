@@ -58,6 +58,10 @@ It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 
 This is an ALZ Accelerator-oriented implementation scaffold. It is designed to prove that I understand the Microsoft ALZ Terraform implementation model and the enterprise design patterns around it.
 
+## Architecture Review
+
+For a professional gap assessment and hardening roadmap, see [Repo Review Recommendations](docs/REPO-REVIEW-RECOMMENDATIONS.md).
+
 It still requires real enterprise inputs before production use:
 
 - Tenant ID
@@ -82,4 +86,3 @@ This repo instead uses the ALZ module and library model:
 - Policy assignment modifications and defaults are handled through ALZ module inputs.
 
 That distinction matters when a client specifically asks for Microsoft ALZ Accelerator experience.
-
