@@ -6,6 +6,7 @@ This repo should prove more than syntax. The evidence should show that the ALZ p
 
 Capture sanitized evidence for:
 
+- Predeployment validation workflow
 - Public repo safety scan
 - Terraform init with `-backend=false`
 - Terraform validate
@@ -35,11 +36,18 @@ Run the public repo safety check before commit:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-PublicRepoSafety.ps1
 ```
 
+To generate local predeployment evidence:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Run-PredeploymentValidation.ps1
+```
+
 ## Evidence Checklist
 
 | Area | Evidence File | Status |
 | --- | --- | --- |
 | Public repo safety | `evidence/public-repo-safety-sanitized.md` | Pending |
+| Predeployment workflow | GitHub Actions artifact `alz-predeployment-validation` | Pending |
 | Terraform validate | `evidence/terraform-validate-sanitized.md` | Pending |
 | Terraform plan | `evidence/terraform-plan-sanitized.md` | Pending |
 | Management groups | `evidence/management-groups.md` | Template |

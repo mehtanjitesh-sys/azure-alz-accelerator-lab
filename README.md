@@ -84,6 +84,8 @@ For a professional gap assessment and hardening roadmap, see [Repo Review Recomm
 
 For portfolio proof, use [Validation Evidence](docs/VALIDATION-EVIDENCE.md) and commit only sanitized outputs.
 
+For no-Azure syntax confidence, run the `Predeployment Validation` GitHub Actions workflow or execute `scripts/Run-PredeploymentValidation.ps1` locally. This validates Terraform formatting, module initialization without a backend, and Terraform syntax without claiming a real Azure deployment.
+
 ## Deployment Stages
 
 The main root module remains useful for lab review, but production rollout should follow the stage model in [Deployment Stages](docs/DEPLOYMENT-STAGES.md).
