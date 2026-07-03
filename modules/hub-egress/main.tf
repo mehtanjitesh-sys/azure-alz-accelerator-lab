@@ -210,8 +210,7 @@ resource "azurerm_monitor_diagnostic_setting" "firewall" {
     category_group = "allLogs"
   }
 
-  metric {
+  enabled_metric {
     category = "AllMetrics"
-    enabled  = true
   }
 }
