@@ -1,0 +1,85 @@
+# Azure ALZ Accelerator Lab
+
+This repository is a portfolio-grade Azure Landing Zone implementation focused on the current Microsoft Azure Landing Zone Terraform pattern, not a hand-rolled management-group-only demo.
+
+It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
+
+- `Azure/terraform-azurerm-avm-ptn-alz/azurerm`
+- Azure Landing Zones library references through the `azure/alz` provider
+- Custom ALZ architecture definition for enterprise segmentation
+- Subscription placement through the ALZ module
+- Separate Terraform modules for the platform patterns that usually sit around ALZ
+
+## What This Demonstrates
+
+| Capability | Implemented In |
+| --- | --- |
+| Microsoft ALZ Terraform Accelerator-style implementation | `environments/alz-platform` |
+| Custom management group hierarchy beyond CAF defaults | `lib/enterprise.alz_architecture_definition.yaml` |
+| Subscription placement through ALZ | `environments/alz-platform/main.tf` |
+| Hub-controlled egress | `modules/hub-egress` |
+| Route tables with `0.0.0.0/0` to Azure Firewall | `modules/hub-egress` |
+| Hub/spoke peering | `modules/hub-egress` |
+| Private DNS Resolver scaffolding | `modules/hub-egress` |
+| Subscription vending object model | `modules/subscription-vending` |
+| RBAC, budgets, tags, diagnostics for vended subscriptions | `modules/subscription-vending` |
+| Identity baseline examples | `modules/identity-baseline` |
+| Federated deployment identity | `modules/identity-baseline` |
+| Blue/green deployment reference | `modules/blue-green-frontdoor` |
+| GitHub Actions plan/apply workflow | `.github/workflows/terraform-alz.yml` |
+
+## Repo Layout
+
+```text
+.
+|-- environments/
+|   `-- alz-platform/
+|       |-- main.tf
+|       |-- providers.tf
+|       |-- variables.tf
+|       |-- outputs.tf
+|       `-- terraform.tfvars.example
+|-- lib/
+|   `-- enterprise.alz_architecture_definition.yaml
+|-- modules/
+|   |-- hub-egress/
+|   |-- subscription-vending/
+|   |-- identity-baseline/
+|   `-- blue-green-frontdoor/
+|-- docs/
+|   |-- DESIGN-DECISIONS.md
+|   |-- OPERATING-MODEL.md
+|   `-- VALIDATION.md
+`-- .github/workflows/
+    `-- terraform-alz.yml
+```
+
+## Important Positioning
+
+This is an ALZ Accelerator-oriented implementation scaffold. It is designed to prove that I understand the Microsoft ALZ Terraform implementation model and the enterprise design patterns around it.
+
+It still requires real enterprise inputs before production use:
+
+- Tenant ID
+- Billing scope
+- Existing subscription IDs or vending permissions
+- Entra group object IDs
+- Connectivity subscription ID
+- Log Analytics workspace ID
+- DNS forwarding targets
+- Allowed regions
+- Compliance control mapping
+
+## Why This Is Different From A Custom Landing Zone
+
+A custom landing zone might create management groups directly with `azurerm_management_group`.
+
+This repo instead uses the ALZ module and library model:
+
+- Architecture definition file controls hierarchy.
+- Archetypes drive policy and governance inheritance.
+- Subscription placement is passed into the ALZ module.
+- Policy assignment modifications and defaults are handled through ALZ module inputs.
+
+That distinction matters when a client specifically asks for Microsoft ALZ Accelerator experience.
+

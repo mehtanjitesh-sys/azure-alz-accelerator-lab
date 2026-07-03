@@ -1,0 +1,21 @@
+# This example is intentionally not applied by default because PIM eligibility
+# requires tenant licensing, privileged role permissions, and client-specific
+# approval settings. Keep active owner assignments out of long-lived production
+# designs where PIM is available.
+#
+# Validate the exact azurerm provider resource and arguments against the version
+# used by your tenant before enabling.
+#
+# resource "azurerm_pim_eligible_role_assignment" "platform_admin_owner" {
+#   scope              = var.tenant_root_management_group_id
+#   role_definition_id = "${var.tenant_root_management_group_id}/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+#   principal_id       = var.platform_admin_group_object_id
+#   justification      = "Eligible platform owner access for emergency landing-zone operations."
+#
+#   schedule {
+#     start_date_time = "2026-01-01T00:00:00Z"
+#     expiration {
+#       duration_days = 365
+#     }
+#   }
+# }

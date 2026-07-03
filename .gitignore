@@ -1,0 +1,16 @@
+.terraform/
+**/.terraform/
+.terraform.lock.hcl
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+.alzlib/
+**/.alzlib/
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.vscode/
+

@@ -1,0 +1,106 @@
+$schema: https://raw.githubusercontent.com/Azure/Azure-Landing-Zones-Library/main/schemas/architecture_definition.json
+name: enterprise
+management_groups:
+  - id: contoso-alz
+    display_name: Contoso ALZ Root
+    parent_id: null
+    exists: false
+    archetypes:
+      - root
+  - id: contoso-platform
+    display_name: Platform
+    parent_id: contoso-alz
+    exists: false
+    archetypes:
+      - platform
+  - id: contoso-connectivity
+    display_name: Connectivity
+    parent_id: contoso-platform
+    exists: false
+    archetypes:
+      - connectivity
+  - id: contoso-identity
+    display_name: Identity
+    parent_id: contoso-platform
+    exists: false
+    archetypes:
+      - identity
+  - id: contoso-management
+    display_name: Management
+    parent_id: contoso-platform
+    exists: false
+    archetypes:
+      - management
+  - id: contoso-landingzones
+    display_name: Landing Zones
+    parent_id: contoso-alz
+    exists: false
+    archetypes:
+      - landing_zones
+  - id: contoso-regulated
+    display_name: Regulated
+    parent_id: contoso-landingzones
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-regulated-prod
+    display_name: Regulated Production
+    parent_id: contoso-regulated
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-regulated-nonprod
+    display_name: Regulated NonProduction
+    parent_id: contoso-regulated
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-internal
+    display_name: Internal
+    parent_id: contoso-landingzones
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-internal-prod
+    display_name: Internal Production
+    parent_id: contoso-internal
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-internal-nonprod
+    display_name: Internal NonProduction
+    parent_id: contoso-internal
+    exists: false
+    archetypes:
+      - corp
+  - id: contoso-vendor-managed
+    display_name: Vendor Managed
+    parent_id: contoso-landingzones
+    exists: false
+    archetypes:
+      - online
+  - id: contoso-saas
+    display_name: SaaS
+    parent_id: contoso-landingzones
+    exists: false
+    archetypes:
+      - online
+  - id: contoso-sandbox
+    display_name: Sandbox
+    parent_id: contoso-alz
+    exists: false
+    archetypes:
+      - sandbox
+  - id: contoso-quarantine
+    display_name: Quarantine
+    parent_id: contoso-alz
+    exists: false
+    archetypes:
+      - decommissioned
+  - id: contoso-decommissioning
+    display_name: Decommissioning
+    parent_id: contoso-alz
+    exists: false
+    archetypes:
+      - decommissioned
+
