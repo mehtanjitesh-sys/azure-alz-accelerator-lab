@@ -88,6 +88,12 @@ For portfolio proof, use [Validation Evidence](docs/VALIDATION-EVIDENCE.md) and 
 
 The main root module remains useful for lab review, but production rollout should follow the stage model in [Deployment Stages](docs/DEPLOYMENT-STAGES.md).
 
+Starter-pack standards:
+
+- [Naming Conventions](docs/NAMING-CONVENTIONS.md)
+- [Environment Strategy](docs/ENVIRONMENT-STRATEGY.md)
+- [Workload Onboarding](docs/WORKLOAD-ONBOARDING.md)
+
 It still requires real enterprise inputs before production use:
 
 - Tenant ID

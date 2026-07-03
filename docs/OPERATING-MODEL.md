@@ -44,6 +44,8 @@ Baseline recommendation:
 6. App team receives onboarding outputs.
 7. Compliance state is checked before workload deployment.
 
+Required request details are defined in [Workload Onboarding](WORKLOAD-ONBOARDING.md). Names and tags should follow [Naming Conventions](NAMING-CONVENTIONS.md).
+
 ## RTO/RPO
 
 Landing-zone vending should capture workload criticality:
@@ -52,4 +54,3 @@ Landing-zone vending should capture workload criticality:
 - Tier 2: production, backup and recovery runbook required
 - Tier 3: nonproduction, lower recovery expectation
 - Sandbox: no guaranteed recovery
-
