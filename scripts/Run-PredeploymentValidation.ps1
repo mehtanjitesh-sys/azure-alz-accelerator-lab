@@ -19,11 +19,23 @@ function Invoke-And-Capture {
   $sanitizedPath = Join-Path $EvidencePath "$Name-sanitized.md"
 
   Write-Host "Running $Name..."
-  & $Command *>&1 | Tee-Object -FilePath $rawPath
+  $output = & $Command *>&1
+  $exitCode = $LASTEXITCODE
+
+  if ($null -eq $output) {
+    "Command completed successfully with no output." | Tee-Object -FilePath $rawPath
+  }
+  else {
+    $output | Tee-Object -FilePath $rawPath
+  }
 
   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Sanitize-Evidence.ps1 `
     -InputPath $rawPath `
     -OutputPath $sanitizedPath
+
+  if ($exitCode -ne 0) {
+    throw "$Name failed with exit code $exitCode. Review $sanitizedPath."
+  }
 }
 
 Invoke-And-Capture -Name "public-repo-safety" -Command {
