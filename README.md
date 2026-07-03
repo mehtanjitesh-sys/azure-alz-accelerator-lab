@@ -10,6 +10,18 @@ It uses the Microsoft Azure Verified Module pattern for Azure Landing Zones:
 - Subscription placement through the ALZ module
 - Separate Terraform modules for the platform patterns that usually sit around ALZ
 
+## Deployment Status
+
+This repository is validated in a no-Azure, plan-first mode: formatting and syntax validation run via `scripts/Run-PredeploymentValidation.ps1` and CI without requiring a live Azure backend.
+
+Actual infrastructure deployment is intentionally gated and follows the stage model in `docs/DEPLOYMENT-STAGES.md`:
+
+- Trigger: manual/staged execution, not automatic on push
+- Requires enterprise-specific inputs (Tenant ID, billing scope, subscription vending permissions, connectivity/DNS)
+- Requires configured deployment identity and environment approval
+
+This balanced posture keeps the lab safe to publish publicly while remaining deployable once tenant-specific inputs are configured.
+
 ## What This Demonstrates
 
 | Capability | Implemented In |
