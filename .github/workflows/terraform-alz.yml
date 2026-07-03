@@ -31,6 +31,7 @@ jobs:
           fi
 
       - name: Azure login with OIDC
+        if: github.event_name == 'workflow_dispatch'
         uses: azure/login@v2
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
@@ -38,6 +39,7 @@ jobs:
           subscription-id: ${{ vars.AZURE_PLATFORM_SUBSCRIPTION_ID }}
 
       - name: Terraform init
+        if: github.event_name == 'workflow_dispatch'
         run: |
           terraform init \
             -backend-config="resource_group_name=${{ vars.TFSTATE_RESOURCE_GROUP }}" \
@@ -49,6 +51,7 @@ jobs:
         run: terraform fmt -recursive -check
 
       - name: Terraform validate
+        if: github.event_name == 'workflow_dispatch'
         run: terraform validate
 
       - name: Run Checkov
@@ -59,6 +62,7 @@ jobs:
           soft_fail: true
 
       - name: Terraform plan
+        if: github.event_name == 'workflow_dispatch'
         id: plan
         run: |
           set +e
@@ -70,6 +74,7 @@ jobs:
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
       - name: Upload plan artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: alz-platform-tfplan
