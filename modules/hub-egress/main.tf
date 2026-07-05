@@ -69,6 +69,13 @@ resource "azurerm_subnet" "dns_outbound" {
   }
 }
 
+resource "azurerm_subnet" "private_endpoints" {
+  name                 = "snet-private-endpoints"
+  resource_group_name  = azurerm_resource_group.this.name
+  virtual_network_name = azurerm_virtual_network.hub.name
+  address_prefixes     = [var.private_endpoints_subnet_cidr]
+}
+
 resource "azurerm_public_ip" "firewall" {
   name                = "pip-${var.prefix}-azfw"
   location            = azurerm_resource_group.this.location

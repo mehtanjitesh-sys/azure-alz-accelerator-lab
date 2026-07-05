@@ -39,20 +39,21 @@ module "alz" {
 module "hub_egress" {
   source = "../../modules/hub-egress"
 
-  location                   = var.location
-  prefix                     = var.enterprise_id
-  resource_group_name        = "rg-${var.enterprise_id}-connectivity-hub"
-  hub_vnet_address_space     = var.hub_vnet_address_space
-  firewall_subnet_cidr       = var.firewall_subnet_cidr
-  bastion_subnet_cidr        = var.bastion_subnet_cidr
-  dns_inbound_subnet_cidr    = var.dns_inbound_subnet_cidr
-  dns_outbound_subnet_cidr   = var.dns_outbound_subnet_cidr
-  spokes                     = var.spokes
-  dns_forwarding_rules       = var.dns_forwarding_rules
-  log_analytics_workspace_id = var.log_analytics_workspace_id
-  ddos_protection_plan_id    = var.ddos_protection_plan_id
-  firewall_policy_sku        = var.firewall_policy_sku
-  firewall_sku_tier          = var.firewall_sku_tier
+  location                      = var.location
+  prefix                        = var.enterprise_id
+  resource_group_name           = "rg-${var.enterprise_id}-connectivity-hub"
+  hub_vnet_address_space        = var.hub_vnet_address_space
+  firewall_subnet_cidr          = var.firewall_subnet_cidr
+  bastion_subnet_cidr           = var.bastion_subnet_cidr
+  dns_inbound_subnet_cidr       = var.dns_inbound_subnet_cidr
+  dns_outbound_subnet_cidr      = var.dns_outbound_subnet_cidr
+  private_endpoints_subnet_cidr = var.private_endpoints_subnet_cidr
+  spokes                        = var.spokes
+  dns_forwarding_rules          = var.dns_forwarding_rules
+  log_analytics_workspace_id    = var.log_analytics_workspace_id
+  ddos_protection_plan_id       = var.ddos_protection_plan_id
+  firewall_policy_sku           = var.firewall_policy_sku
+  firewall_sku_tier             = var.firewall_sku_tier
 }
 
 module "identity_baseline" {
@@ -81,6 +82,21 @@ module "workload_network_onboarding" {
   hub_vnet_id                 = module.hub_egress.hub_vnet_id
   firewall_private_ip_address = module.hub_egress.firewall_private_ip_address
   spokes                      = var.spokes
+}
+
+module "platform_key_vault" {
+  source = "../../modules/key-vault"
+
+  prefix                          = var.enterprise_id
+  name                            = var.platform_key_vault_name
+  resource_group_name             = "rg-${var.enterprise_id}-platform-secrets"
+  location                        = var.location
+  log_analytics_workspace_id      = var.log_analytics_workspace_id
+  private_endpoint_subnet_id      = module.hub_egress.private_endpoints_subnet_id
+  private_endpoint_vnet_id        = module.hub_egress.hub_vnet_id
+  key_vault_admin_group_object_id = var.platform_admin_group_object_id
+  platform_deployer_principal_id  = module.identity_baseline.platform_deployer_object_id
+  tags                            = var.default_tags
 }
 
 module "blue_green_frontdoor" {
