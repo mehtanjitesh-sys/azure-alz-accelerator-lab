@@ -24,7 +24,8 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  type = string
+  type        = string
+  description = "Azure region in which the private endpoint is deployed."
 }
 
 variable "private_dns_zone_name" {
@@ -50,6 +51,7 @@ variable "existing_private_dns_zone_id" {
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  description = "Tags applied to resources created by this module."
+  default     = {}
 }
