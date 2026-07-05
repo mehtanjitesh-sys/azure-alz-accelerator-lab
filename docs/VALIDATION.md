@@ -85,6 +85,35 @@ Expected result:
 - No client secret is required.
 - Deployment identity has only the required management-group permissions.
 
+## Key Vault And Private Endpoint Validation
+
+```bash
+az keyvault show \
+  --name <platform-key-vault-name> \
+  --query "{name:name,rbac:properties.enableRbacAuthorization,purge:properties.enablePurgeProtection,publicNet:properties.publicNetworkAccess}" \
+  --output table
+
+az network private-endpoint list \
+  --resource-group rg-contoso-platform-secrets \
+  --output table
+
+az role assignment list \
+  --scope <key-vault-resource-id> \
+  --output table
+```
+
+Expected result:
+
+- RBAC authorization is enabled and purge protection is on.
+- Public network access is `Disabled`; network ACL default action is `Deny`.
+- A private endpoint exists for the vault (`vault` subresource) in the hub
+  private-endpoints subnet, with a `privatelink.vaultcore.azure.net` zone linked
+  to the hub VNet.
+- Vault-scoped role assignments: platform admin group has *Key Vault
+  Administrator*; the `platform_deployer` service principal has *Key Vault
+  Secrets User*.
+- Diagnostics point to the central Log Analytics workspace.
+
 ## Blue/Green Validation
 
 ```bash

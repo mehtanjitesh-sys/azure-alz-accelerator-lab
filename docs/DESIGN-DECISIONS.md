@@ -65,7 +65,29 @@ The identity module includes:
 
 In production, active owner assignments should be minimized and moved toward PIM eligibility. Break-glass accounts should be cloud-only, excluded from Conditional Access policies that could lock out the tenant, and heavily monitored.
 
-## 6. Blue/Green Reference
+## 6. Private Endpoints And Platform Key Vault
+
+Private endpoints and Key Vault RBAC are now implemented, closing a gap where the
+accelerator had zero `azurerm_private_endpoint` and zero `azurerm_key_vault`
+resources despite positioning itself as a healthcare-grade reference.
+
+- `modules/private-endpoint` is a reusable module that fronts any PaaS resource
+  with a private endpoint, the matching `privatelink.*` Private DNS Zone, a hub
+  VNet link, and a `private_dns_zone_group`. It consumes the new
+  `private_endpoints_subnet_id` / `hub_vnet_id` outputs from `modules/hub-egress`.
+- `modules/key-vault` provisions a hardened vault (`enable_rbac_authorization`,
+  `purge_protection_enabled`, 90-day soft delete, `public_network_access_enabled
+  = false`, deny-by-default network ACLs), a diagnostic setting to the central
+  workspace, and its own private endpoint (`subresource_names = ["vault"]`).
+
+RBAC is deliberately **vault-scoped**, not management-group scoped: the platform
+admin group receives *Key Vault Administrator*, and the `platform_deployer`
+GitHub OIDC service principal from `modules/identity-baseline` receives *Key
+Vault Secrets User*. This keeps CI/CD able to read platform automation secrets
+without standing administrative control, aligning with HIPAA §164.312 access-
+control and transmission-security technical safeguards.
+
+## 7. Blue/Green Reference
 
 The blue/green module uses Azure Front Door as the traffic-control layer.
 

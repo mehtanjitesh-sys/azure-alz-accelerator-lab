@@ -87,6 +87,11 @@ variable "dns_outbound_subnet_cidr" {
   default = "10.0.1.16/28"
 }
 
+variable "private_endpoints_subnet_cidr" {
+  type    = string
+  default = "10.0.1.32/27"
+}
+
 variable "ddos_protection_plan_id" {
   type    = string
   default = null
@@ -105,6 +110,11 @@ variable "firewall_sku_tier" {
 variable "log_analytics_workspace_id" {
   type        = string
   description = "Central Log Analytics workspace resource ID."
+}
+
+variable "platform_key_vault_name" {
+  type        = string
+  description = "Globally unique name for the platform automation Key Vault (3-24 chars, alphanumeric and hyphens)."
 }
 
 variable "default_tags" {

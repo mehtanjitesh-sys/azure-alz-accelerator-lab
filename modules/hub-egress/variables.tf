@@ -30,6 +30,10 @@ variable "dns_outbound_subnet_cidr" {
   type = string
 }
 
+variable "private_endpoints_subnet_cidr" {
+  type = string
+}
+
 variable "ddos_protection_plan_id" {
   type    = string
   default = null
